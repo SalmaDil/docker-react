@@ -1,0 +1,13 @@
+#tell travis we need a copy of docker running
+sudo: required
+language: generic 
+services:
+    - docker
+
+#build our image using Dockerfile.dev
+before_install:
+    - docker build -t salmadilai/docker-react -f Dockerfile.dev .
+
+#tell travis how to run our test suite
+script:
+    - docker run -e CI=true salmadilai/docker-react npm run test
